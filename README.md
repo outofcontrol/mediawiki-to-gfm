@@ -75,6 +75,7 @@ Updates and improvements are welcome! Please only submit a PR if you have also w
 ## Thank you
 
 [@mloskot](https://github.com/mloskot/): Verify that this script does run in PHP 7.2 ([#1](https://github.com/outofcontrol/mediawiki-to-gfm/issues/1))
+[@timwsuqld](https://github.com/timwsuqld/): First contribution!
 
 ## Disclaimer
 
