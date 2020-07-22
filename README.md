@@ -34,7 +34,7 @@ Run the script on your exported MediaWiki XML file:
 
 Run the script from docker run :
 
-docker run -v /path/to/input/file:/usr/src/mediawiki-to-gfm/input -v /path/to/converted/files:/usr/src/mediawiki-to-gfm/output mediawiki-to-gfm:latest --filename="input/filename.xml"
+	docker run -v /path/to/input/file:/usr/src/mediawiki-to-gfm/input -v /path/to/converted/files:/usr/src/mediawiki-to-gfm/output mediawiki-to-gfm:latest --filename="input/filename.xml"
 
 	
 ## Options
