@@ -29,6 +29,14 @@ Run the script on your exported MediaWiki XML file:
 
     ./convert.php --filename=/path/to/filename.xml --output=/path/to/converted/files 
 
+
+## Run (docker)
+
+Run the script from docker run :
+
+docker run -v /path/to/input/file:/usr/src/mediawiki-to-gfm/input -v /path/to/converted/files:/usr/src/mediawiki-to-gfm/output mediawiki-to-gfm:latest --filename="input/filename.xml"
+
+	
 ## Options
 
     ./convert.php --filename=/path/to/filename.xml --output=/path/to/converted/files --format=gfm --addmeta --flatten --indexes
@@ -71,7 +79,7 @@ In theory you can convert to any of these formats… (not tested):
 Updates and improvements are welcome! Please only submit a PR if you have also written tests and tested your code! To run phpunit tests, update composer without the --no-dev parameter:
 
     composer update
-
+	
 ## Thank you
 
 [@mloskot](https://github.com/mloskot/): Verify that this script does run in PHP 7.2 ([#1](https://github.com/outofcontrol/mediawiki-to-gfm/issues/1))  
