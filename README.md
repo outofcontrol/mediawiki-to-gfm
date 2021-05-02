@@ -6,7 +6,7 @@
 Mediawiki to GFM is a script to convert a set of [Mediawiki](https://www.mediawiki.org)
 pages to [Github Flavoured Markdown](https://github.github.com/gfm/) (GFM). This script was written from a necessity to convert a MediaWiki installation to a Gitlab wiki. This code is based on [MediaWiki to Markdown](https://github.com/philipashlock/mediawiki-to-markdown) by [Philip Ashlock](https://github.com/philipashlock/). Philip graciously gave us permission to post our version as a new project.
 
-Major differences include the additon of PHPUnit tests, code is broken into classes, deprecated code removed, work around for a bug in Pandoc added, fix for a common MediaWiki user error added, other small changes other small changes. 
+Major differences include the addition of PHPUnit tests, code is broken into classes, deprecated code removed, work around for a bug in Pandoc added, fix for a common MediaWiki user error added, other small changes other small changes. 
 
 ## Requirements
 
