@@ -82,7 +82,7 @@ class Convert
 
     /**
      * Set whether the version of pandoc in use contains a known link bug
-     * @see // Link to bug on Github
+     * @see // Link to bug on GitHub
      * @var [type]
      */
     private $pandocBroken;
@@ -355,7 +355,7 @@ Version: {$this->version}
 MIT License: https://opensource.org/licenses/MIT
 
 Mediawiki to GFM converter is a script that will convert a set of media wiki
-files to Github Flavoured Markdown (GFM). This converter has been tested to work
+files to GitHub Flavoured Markdown (GFM). This converter has been tested to work
 with Mediawiki 1.27.x and 1.29.x.
 
 Requirements:
@@ -373,7 +373,7 @@ Options:
     --filename : Location of the mediawiki exported XML file to convert to GFM format (Required).
     --output   : Location where you would like to save the converted files (Default: ./output).
     --format   : What format would you like to convert to. Default is GFM (for use 
-        in Gitlab and Github) See pandoc documentation for more formats (Default: 'gfm').
+        in Gitlab and GitHub) See pandoc documentation for more formats (Default: 'gfm').
     --addmeta  : This flag will add a Permalink to each file (Default: false).
     --flatten  : This flag will force all pages to be saved in a single level 
                  directory. File names will be converted in the following way:
@@ -383,7 +383,7 @@ Options:
 
 
 Export Mediawiki Files to XML
-In order to convert from MediaWiki format to GFM and use in Gitlab (or Github), you will 
+In order to convert from MediaWiki format to GFM and use in Gitlab (or GitHub), you will 
 first need to export all the pages you wish to convert from Mediawiki into an XML file. 
 Here are a few simple steps to help
 you accomplish this quickly:

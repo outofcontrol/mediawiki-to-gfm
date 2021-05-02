@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Mediawiki to Github Flavoured Markdown
+Upstream-Name: Mediawiki to GitHub Flavoured Markdown
 Upstream-Contact: James Riordon <jriordon@outofcontrol.ca>
 Source: https://github.com/outofcontrol/mediawiki-to-gfm
 

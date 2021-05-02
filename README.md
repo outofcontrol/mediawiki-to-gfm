@@ -1,10 +1,10 @@
-# Mediawiki to Github Flavoured Markdown
+# Mediawiki to GitHub Flavoured Markdown
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Build Status](https://travis-ci.org/outofcontrol/mediawiki-to-gfm.svg?branch=master)](https://travis-ci.org/outofcontrol/mediawiki-to-gfm)
 
 Mediawiki to GFM is a script to convert a set of [Mediawiki](https://www.mediawiki.org)
-pages to [Github Flavoured Markdown](https://github.github.com/gfm/) (GFM). This script was written from a necessity to convert a MediaWiki installation to a Gitlab wiki. This code is based on [MediaWiki to Markdown](https://github.com/philipashlock/mediawiki-to-markdown) by [Philip Ashlock](https://github.com/philipashlock/). Philip graciously gave us permission to post our version as a new project.
+pages to [GitHub Flavoured Markdown](https://github.github.com/gfm/) (GFM). This script was written from a necessity to convert a MediaWiki installation to a Gitlab wiki. This code is based on [MediaWiki to Markdown](https://github.com/philipashlock/mediawiki-to-markdown) by [Philip Ashlock](https://github.com/philipashlock/). Philip graciously gave us permission to post our version as a new project.
 
 Major differences include the addition of PHPUnit tests, code is broken into classes, deprecated code removed, work around for a bug in Pandoc added, fix for a common MediaWiki user error added, other small changes other small changes. 
 
@@ -38,7 +38,7 @@ Run the script on your exported MediaWiki XML file:
     --output   : Location where you would like to save the converted files
                  (Default: ./output)
     --format   : What format would you like to convert to. Default is GFM 
-                 (for use in Gitlab and Github) See pandoc documentation
+                 (for use in Gitlab and GitHub) See pandoc documentation
                  for more formats (Default: 'gfm')
     --addmeta  : This flag will add a Permalink to each file (Default: false)
     --flatten  : This flag will force all pages to be saved in a single level 
@@ -50,7 +50,7 @@ Run the script on your exported MediaWiki XML file:
 
 ## Export Mediawiki Files to XML 
 
-In order to convert from MediaWiki format to GFM and use in Gitlab (or Github), you will first need to export all the pages you wish to convert from Mediawiki into an XML file. Here are a few simple steps to help
+In order to convert from MediaWiki format to GFM and use in Gitlab (or GitHub), you will first need to export all the pages you wish to convert from Mediawiki into an XML file. Here are a few simple steps to help
 you accomplish this quickly:
 
 1. MediaWiki -> Special Pages -> 'All Pages'
