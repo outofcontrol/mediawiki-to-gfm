@@ -200,7 +200,7 @@ class ConvertTest extends TestCase
     public function test_exception_thrown_when_create_directory_fails()
     {
         // Missing newFolder slash, creates an error
-        $newFolder = $this->file_system->url() . 'nonexistantoutput';
+        $newFolder = $this->file_system->url() . 'nonexistentoutput';
         $this->convert->setOption('filename', ['filename' => $newFolder]);
         $this->convert->createDirectory($newFolder);
     }
