@@ -373,7 +373,7 @@ Options:
     --filename : Location of the mediawiki exported XML file to convert to GFM format (Required).
     --output   : Location where you would like to save the converted files (Default: ./output).
     --format   : What format would you like to convert to. Default is GFM (for use 
-        in Gitlab and GitHub) See pandoc documentation for more formats (Default: 'gfm').
+        in GitLab and GitHub) See pandoc documentation for more formats (Default: 'gfm').
     --addmeta  : This flag will add a Permalink to each file (Default: false).
     --flatten  : This flag will force all pages to be saved in a single level 
                  directory. File names will be converted in the following way:
@@ -383,7 +383,7 @@ Options:
 
 
 Export Mediawiki Files to XML
-In order to convert from MediaWiki format to GFM and use in Gitlab (or GitHub), you will 
+In order to convert from MediaWiki format to GFM and use in GitLab (or GitHub), you will 
 first need to export all the pages you wish to convert from Mediawiki into an XML file. 
 Here are a few simple steps to help
 you accomplish this quickly:
