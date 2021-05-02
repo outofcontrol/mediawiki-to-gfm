@@ -180,7 +180,7 @@ class ConvertTest extends TestCase
      */ 
     public function test_exception_thrown_when_loading_data_from_none_existant_file()
    {
-        $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/nonexistantfile.xml']);
+        $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/nonexistentfile.xml']);
         $this->convert->loadFile();
     }
 
