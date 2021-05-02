@@ -288,7 +288,7 @@ Follow this link to [http://example.com/path/to/destination/ see where it goes].
 == Bad Links to fix ==
 
 * [[https://example.com/this/is/external/ Improperly formatted link]]
-* Link that breaks older pandoc: [https://example.com/script.php?search=findme&amp;parttwo=&amp;three=.&amp;four=ansdwer this link should be fixed now]
+* Link that breaks older pandoc: [https://example.com/script.php?search=findme&amp;parttwo=&amp;three=.&amp;four=answer this link should be fixed now]
         </text>
       <sha1>hymbf8qh3k49td4dg7qdfsox1er4xpw</sha1>
     </revision>
