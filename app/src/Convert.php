@@ -225,7 +225,7 @@ class Convert
     }
 
     /**
-     * Simple method to handle outputing messages to the CLI
+     * Simple method to handle outputting messages to the CLI
      * @param  string $message Message to output
      */
     public function message($message)
