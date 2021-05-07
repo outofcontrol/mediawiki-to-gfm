@@ -173,11 +173,11 @@ class Convert
         return $text;
     }
 
-   /**
-     * Save new mark down file
-     * @param  string $fileMeta Name of file to save
-     * @param  strong $text     Body of file to save
-     */
+    /**
+      * Save new mark down file
+      * @param  string $fileMeta Name of file to save
+      * @param  strong $text     Body of file to save
+      */
     public function saveFile($fileMeta, $text)
     {
         $this->createDirectory($fileMeta['directory']);
