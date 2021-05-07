@@ -2,7 +2,7 @@
 <?php
 
 /**
- * Convert converts Mediawiki format to Github Flavoured Markdown format
+ * Convert converts Mediawiki format to GitHub Flavoured Markdown format
  *
  * Current Author
  * @author James Riordon <jriordon@outofcontrol.ca>

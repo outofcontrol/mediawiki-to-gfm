@@ -180,7 +180,7 @@ class ConvertTest extends TestCase
      */ 
     public function test_exception_thrown_when_loading_data_from_none_existant_file()
    {
-        $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/nonexistantfile.xml']);
+        $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/nonexistentfile.xml']);
         $this->convert->loadFile();
     }
 
@@ -200,7 +200,7 @@ class ConvertTest extends TestCase
     public function test_exception_thrown_when_create_directory_fails()
     {
         // Missing newFolder slash, creates an error
-        $newFolder = $this->file_system->url() . 'nonexistantoutput';
+        $newFolder = $this->file_system->url() . 'nonexistentoutput';
         $this->convert->setOption('filename', ['filename' => $newFolder]);
         $this->convert->createDirectory($newFolder);
     }
@@ -288,7 +288,7 @@ Follow this link to [http://example.com/path/to/destination/ see where it goes].
 == Bad Links to fix ==
 
 * [[https://example.com/this/is/external/ Improperly formatted link]]
-* Link that breaks older pandoc: [https://example.com/script.php?search=findme&amp;parttwo=&amp;three=.&amp;four=ansdwer this link should be fixed now]
+* Link that breaks older pandoc: [https://example.com/script.php?search=findme&amp;parttwo=&amp;three=.&amp;four=answer this link should be fixed now]
         </text>
       <sha1>hymbf8qh3k49td4dg7qdfsox1er4xpw</sha1>
     </revision>
