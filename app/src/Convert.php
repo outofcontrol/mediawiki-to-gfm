@@ -379,6 +379,7 @@ Options:
                  directory. File names will be converted in the following way:
                  Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
                  and saved in a file called 'Mediawiki_folder_My_File_Name.md'
+    --version  : Displays the program's version
     --help     : This help message.
 
 
