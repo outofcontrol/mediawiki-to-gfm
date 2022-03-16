@@ -3,6 +3,7 @@
 namespace App;
 
 use Pandoc\Pandoc;
+use Pandoc\PandocException;
 use App\CleanLink;
 use App\PandocFix;
 
@@ -44,6 +45,12 @@ class Convert
      */
     private $indexes = false;
 
+    /**
+     * Set to true will skip files failing conversion
+     * @var boolean
+     */
+    private $skiperrors = false;
+    
     /**
      * Which format to convert files to.
      * @var string
@@ -126,14 +133,28 @@ class Convert
     {
         foreach ($this->dataToConvert as $node) {
             $fileMeta = $this->retrieveFileInfo($node->xpath('title'));
-
             $text = $node->xpath('revision/text');
             $text = $this->cleanText($text[0], $fileMeta);
-            $text = $this->runPandoc($text);
-
-            $text .= $this->getMetaData($fileMeta);
-            $this->saveFile($fileMeta, $text);
-            $this->counter++;
+            $converted=false;
+            // handle a bit more details when pandoc fails
+            try {
+                $text = $this->runPandoc($text);
+                $converted=true;
+            } catch (PandocException $e) {
+                $this->message("Failed converting " . $fileMeta['title'] . ":" );
+                if(! $this->skiperrors) {
+                    throw new \Exception($e);
+                }
+                else {
+                    print($e->getMessage());
+                }
+            }
+            if($converted)
+            {
+                $text .= $this->getMetaData($fileMeta);
+                $this->saveFile($fileMeta, $text);
+                $this->counter++;
+            }
         }
     }
 
@@ -301,6 +322,7 @@ class Convert
         $this->setOption('flatten', $options);
         $this->setOption('indexes', $options);
         $this->setOption('addmeta', $options);
+        $this->setOption('skiperrors', $options);
         $this->output = rtrim($this->output, '/') . '/';
     }
 
@@ -379,6 +401,7 @@ Options:
                  directory. File names will be converted in the following way:
                  Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
                  and saved in a file called 'Mediawiki_folder_My_File_Name.md'
+    --skiperrors : This flag will not stop on pandoc parsing errors, and just skip file (Default: false).
     --version  : Displays the program's version
     --help     : This help message.
 
