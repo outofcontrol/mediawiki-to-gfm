@@ -149,10 +149,11 @@ class Convert
                     print($e->getMessage());
                 }
             }
-            if($converted)
-            {
-                $text .= $this->getMetaData($fileMeta);
-                $this->saveFile($fileMeta, $text);
+            if($converted) {
+                $text = $this->runPandoc($text);
+
+                $output = $this->getMetaData($fileMeta) . $text;
+                $this->saveFile($fileMeta, $output);
                 $this->counter++;
             }
         }
