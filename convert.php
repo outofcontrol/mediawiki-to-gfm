@@ -28,6 +28,7 @@ $args = getopt(
         'addmeta::',
         'flatten::',
         'indexes::',
+        'skiperrors::',
         'version::',
         'help::'
     ]
