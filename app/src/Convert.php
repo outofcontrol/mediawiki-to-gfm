@@ -14,7 +14,7 @@ class Convert
      * Converter Version
      * @var string
      */
-    private $version = '0.9.0';
+    private $version = '0.9.3';
     /**
      * Path and name of  file to convert
      * @var String
@@ -95,6 +95,13 @@ class Convert
     private $pandocBroken;
 
     /**
+     * Holds list of pages
+     *
+     * @var string
+     */
+    private $pageList;
+
+    /**
      * Construct
      */
     public function __construct($options)
@@ -128,6 +135,8 @@ class Convert
 
     /**
      * Method to oversee the cleaning, preparation and converting of one page
+     * 
+     * @return void
      */
     public function convertData()
     {
@@ -192,17 +201,47 @@ class Convert
      * Save new mark down file
      * 
      * @param  string $fileMeta Name of file to save
-     * @param  strong $text     Body of file to save
+     * @param  string $text     Body of file to save
+     * @return void
      */
     public function saveFile($fileMeta, $text)
     {
         $this->createDirectory($fileMeta['directory']);
 
-        $file = fopen($fileMeta['directory'] . $fileMeta['filename'] . '.md', 'w');
+        $fileName = $this->pageDeDuplicator($fileMeta['filename']);
+
+        $file = fopen($fileMeta['directory'] . $fileName . '.md', 'w');
         fwrite($file, $text);
         fclose($file);
 
-        $this->message("Converted: " . $fileMeta['directory'] . $fileMeta['filename']);
+        $this->message("Converted: " . $fileMeta['directory'] . $fileName);
+    }
+
+    /**
+     * Page De-duplicator
+     *
+     * @param string $filename
+     * @return string De-duplicated filename
+     */
+    public function pageDeDuplicator($filename)
+    {
+        $lcFileName = strtolower($filename);
+        $count = substr_count($this->pageList, " {$lcFileName} ");
+
+        $this->pushPage($lcFileName);
+
+        return ($count) ? $filename . "({$count})" : $filename;
+    }
+
+    /**
+     * Push page onto de-duplicator string
+     *
+     * @param string $file
+     * @return void
+     */
+    public function pushPage($file)
+    {
+        $this->pageList .= ' ' . strtolower($file) . ' ';
     }
 
     /**
@@ -245,6 +284,7 @@ class Convert
      * Simple method to handle outputting messages to the CLI
      * 
      * @param  string $message Message to output
+     * @return void
      */
     public function message($message)
     {
@@ -254,12 +294,12 @@ class Convert
     /**
      * Rename files that have the same name as a folder to index.md
      * 
-     * @return boolean
+     * @return void
      */
     public function renameFiles()
     {
         if ($this->flatten || !count((array)$this->directory_list) || !$this->indexes) {
-            return false;
+            return;
         }
 
         foreach ($this->directory_list as $directory_name) {
@@ -267,14 +307,13 @@ class Convert
                 rename($this->output . $directory_name . '.md', $this->output . $directory_name . '/index.md');
             }
         }
-        return true;
     }
 
     /**
      * Build and return Permalink metadata
      * 
      * @param array $fileMeta File Title and URL
-     * @return  string Page body with meta data added
+     * @return string Page body with meta data added
      */
     public function getMetaData($fileMeta)
     {
@@ -283,6 +322,11 @@ class Convert
             : '';
     }
 
+    /**
+     * Load file
+     *
+     * @return string Contents of XML file to convert
+     */
     public function loadFile()
     {
         if (!file_exists($this->filename)) {
@@ -297,9 +341,9 @@ class Convert
     /**
      * Load XML contents into variable
      */
-    public function loadData($xml)
+    public function loadData($xmlData)
     {
-        if (($xml = new \SimpleXMLElement($xml)) === false) {
+        if (($xml = new \SimpleXMLElement($xmlData)) === false) {
             throw new \Exception('Invalid XML File.');
         }
         $this->dataToConvert = $xml->xpath('page');
@@ -313,6 +357,7 @@ class Convert
      * Get command line arguments into variables
      * 
      * @param  array $argv Array hold command line interface arguments
+     * @return void
      */
     public function setArguments($options)
     {
@@ -327,9 +372,11 @@ class Convert
     }
 
     /**
-     * Set an Option
+     * Set one Option
+     * 
      * @param string $name  Option name
      * @param string $value Option value
+     * @return void
      */
     public function setOption($name, $options, $default = false)
     {
@@ -340,6 +387,7 @@ class Convert
      * Helper method to cleanly create a directory if none already exists
      * 
      * @param string $output Returns path
+     * @return string Directory
      */
     public function createDirectory($directory = null)
     {
@@ -356,6 +404,7 @@ class Convert
      * 
      * @param string $name  Option name
      * @param string $value Option value
+     * @return string Option value
      */
     public function getOption($name)
     {
@@ -367,14 +416,15 @@ class Convert
      */
     public function getVersion()
     {
-        echo "Version: {$this->version}";
+        $this->message("Version: {$this->version}");
     }
+
     /**
      * Basic help instructions
      */
     public function help()
     {
-        echo <<<HELPMESSAGE
+        $helpMessage = <<<HELPMESSAGE
 Version: {$this->version}
 MIT License: https://opensource.org/licenses/MIT
 
@@ -394,18 +444,18 @@ Run the script on your exported MediaWiki XML file:
 Options:
     ./convert.php --filename=/path/to/filename.xml --output=/path/to/converted/files --format=gfm --addmeta --flatten --indexes
 
-    --filename : Location of the mediawiki exported XML file to convert to GFM format (Required).
-    --output   : Location where you would like to save the converted files (Default: ./output).
-    --format   : What format would you like to convert to. Default is GFM (for use 
-        in GitLab and GitHub) See pandoc documentation for more formats (Default: 'gfm').
-    --addmeta  : This flag will add a Permalink to each file (Default: false).
-    --flatten  : This flag will force all pages to be saved in a single level 
-                 directory. File names will be converted in the following way:
-                 Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
-                 and saved in a file called 'Mediawiki_folder_My_File_Name.md'
-    --skiperrors : This flag will not stop on pandoc parsing errors, and just skip file (Default: false).
-    --version  : Displays the program's version
-    --help     : This help message.
+    --filename   : Location of the mediawiki exported XML file to convert to GFM format (Required).
+    --output     : Location where you would like to save the converted files (Default: ./output).
+    --format     : What format would you like to convert to. Default is GFM (for use 
+                   in GitLab and GitHub) See pandoc documentation for more formats (Default: 'gfm').
+    --addmeta    : This flag will add a Permalink to each file (Default: false).
+    --flatten    : This flag will force all pages to be saved in a single level 
+                   directory. File names will be converted in the following way:
+                   Mediawiki_folder/My_File_Name -> Mediawiki_folder_My_File_Name
+                   and saved in a file called 'Mediawiki_folder_My_File_Name.md'.
+    --skiperrors : Do not stop on pandoc parsing errors, instead, skip the file (Default: false).
+    --version    : Displays the program's version.
+    --help       : This help message.
 
 
 Export Mediawiki Files to XML
@@ -429,5 +479,7 @@ In theory you can convert to any of these formats… but this haven't been teste
     https://pandoc.org/MANUAL.html#description
 
 HELPMESSAGE;
+
+        $this->message($helpMessage);
     }
 }
