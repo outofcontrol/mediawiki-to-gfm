@@ -50,7 +50,7 @@ class Convert
      * @var boolean
      */
     private $skiperrors = false;
-    
+
     /**
      * Which format to convert files to.
      * @var string
@@ -135,32 +135,25 @@ class Convert
             $fileMeta = $this->retrieveFileInfo($node->xpath('title'));
             $text = $node->xpath('revision/text');
             $text = $this->cleanText($text[0], $fileMeta);
-            $converted=false;
-            // handle a bit more details when pandoc fails
+
             try {
                 $text = $this->runPandoc($text);
-                $converted=true;
-            } catch (PandocException $e) {
-                $this->message("Failed converting " . $fileMeta['title'] . ":" );
-                if(! $this->skiperrors) {
-                    throw new \Exception($e);
-                }
-                else {
-                    print($e->getMessage());
-                }
-            }
-            if($converted) {
-                $text = $this->runPandoc($text);
-
                 $output = $this->getMetaData($fileMeta) . $text;
                 $this->saveFile($fileMeta, $output);
                 $this->counter++;
+            } catch (PandocException $e) {
+                if (!$this->skiperrors) {
+                    throw new \Exception($e);
+                } else {
+                    $this->message("Failed converting " . $fileMeta['title'] . ": " . $e->getMessage());
+                }
             }
         }
     }
 
     /**
      * Handles the various tasks to clean and get text ready to convert
+     * 
      * @param  string $text Text to convert
      * @param  array $fileMeta File information
      * @return string Cleaned text
@@ -196,10 +189,11 @@ class Convert
     }
 
     /**
-      * Save new mark down file
-      * @param  string $fileMeta Name of file to save
-      * @param  strong $text     Body of file to save
-      */
+     * Save new mark down file
+     * 
+     * @param  string $fileMeta Name of file to save
+     * @param  strong $text     Body of file to save
+     */
     public function saveFile($fileMeta, $text)
     {
         $this->createDirectory($fileMeta['directory']);
@@ -213,6 +207,7 @@ class Convert
 
     /**
      * Build array of file information
+     * 
      * @param  array $title Title of current page to convert
      * @return array File information: Directory, filename, title and url
      */
@@ -248,6 +243,7 @@ class Convert
 
     /**
      * Simple method to handle outputting messages to the CLI
+     * 
      * @param  string $message Message to output
      */
     public function message($message)
@@ -257,6 +253,7 @@ class Convert
 
     /**
      * Rename files that have the same name as a folder to index.md
+     * 
      * @return boolean
      */
     public function renameFiles()
@@ -275,6 +272,7 @@ class Convert
 
     /**
      * Build and return Permalink metadata
+     * 
      * @param array $fileMeta File Title and URL
      * @return  string Page body with meta data added
      */
@@ -313,6 +311,7 @@ class Convert
 
     /**
      * Get command line arguments into variables
+     * 
      * @param  array $argv Array hold command line interface arguments
      */
     public function setArguments($options)
@@ -339,6 +338,7 @@ class Convert
 
     /**
      * Helper method to cleanly create a directory if none already exists
+     * 
      * @param string $output Returns path
      */
     public function createDirectory($directory = null)
@@ -353,6 +353,7 @@ class Convert
 
     /**
      * Get Option
+     * 
      * @param string $name  Option name
      * @param string $value Option value
      */
