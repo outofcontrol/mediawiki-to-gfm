@@ -131,8 +131,8 @@ class Convert
             $text = $this->cleanText($text[0], $fileMeta);
             $text = $this->runPandoc($text);
 
-            $text .= $this->getMetaData($fileMeta);
-            $this->saveFile($fileMeta, $text);
+            $output = $this->getMetaData($fileMeta) . $text;
+            $this->saveFile($fileMeta, $output);
             $this->counter++;
         }
     }
