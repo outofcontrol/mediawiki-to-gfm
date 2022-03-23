@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ff28d2fc0f2e95ac689356dfb481893d",
+    "content-hash": "81cb54854030f4b71bccad87ae5d001b",
     "packages": [
         {
             "name": "ryakad/pandoc-php",
@@ -2196,7 +2196,9 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": "^8.0"
+    },
     "platform-dev": [],
     "plugin-api-version": "2.1.0"
 }

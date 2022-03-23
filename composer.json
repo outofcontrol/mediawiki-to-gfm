@@ -1,5 +1,6 @@
 {
     "require": {
+        "php": "^8.0",
         "ryakad/pandoc-php": "dev-master"
     },
     "autoload": {
@@ -9,6 +10,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": ">=6",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": ">=1.6"
     }
 }

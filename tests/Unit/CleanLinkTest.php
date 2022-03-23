@@ -7,7 +7,7 @@ use App\CleanLink;
 
 class CleanLinkTest extends TestCase
 {
-    public function SetUp()
+    public function SetUp(): void
     {
         parent::Setup();
 

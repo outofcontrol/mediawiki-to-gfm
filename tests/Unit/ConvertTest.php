@@ -4,13 +4,15 @@ namespace Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use org\bovigo\vfs\vfsStream;
+use org\bovigo\vfs\vfsStreamDirectory;
 use App\Convert;
 
 class ConvertTest extends TestCase
 {
-    public function SetUp()
+    public function SetUp(): void
     {
-        $options = getopt('', 
+        $options = getopt(
+            '',
             [
                 'filename:',
                 'output::',
@@ -26,8 +28,8 @@ class ConvertTest extends TestCase
         $xml = $this->loadData();
         $directory = [
             'data' => [
-                 'valid.xml' => $xml,
-                 'invalid.xml' => ''
+                'valid.xml' => $xml,
+                'invalid.xml' => ''
             ],
             'output' => []
         ];
@@ -40,7 +42,7 @@ class ConvertTest extends TestCase
     /**
      * @test
      */
-    public function set_and_get_options_functions()
+    public function set_and_get_options_functions(): void
     {
         $name = 'add_meta';
         $value = [$name => 'set to true'];
@@ -48,7 +50,7 @@ class ConvertTest extends TestCase
         $this->assertEquals($this->convert->getOption($name), $value['add_meta']);
     }
 
-    public function test_set_option_true()
+    public function test_set_option_true(): void
     {
         $this->convert->setOption('flatten', ['flatten' => true]);
         $this->assertEquals(true, $this->convert->getOption('flatten'));
@@ -90,12 +92,12 @@ class ConvertTest extends TestCase
         ];
 
         // Test with add_meta disabled
-        $this->convert->setOption('addmeta', ['addmeta' => null]);        
+        $this->convert->setOption('addmeta', ['addmeta' => null]);
         $metadata = $this->convert->getMetaData($options);
         $this->assertEquals('', $metadata);
 
         // Test with add_meta enabled
-        $this->convert->setOption('addmeta', ['addmeta' => true]);        
+        $this->convert->setOption('addmeta', ['addmeta' => true]);
         $metadata = $this->convert->getMetaData($options);
         $this->assertEquals($metadata, "---\ntitle: My file title\npermalink: //my/url/\n---\n\n");
     }
@@ -131,10 +133,10 @@ class ConvertTest extends TestCase
         $data = $this->helper_loadXMLData();
         $fileMeta = $this->convert->retrieveFileInfo($data[0]->xpath('title'));
         $validData = [
-          "directory"=> "output/",
-          "filename"=> "Pageone",
-          "title" => "Pageone",
-          "url" => "Pageone"
+            "directory" => "output/",
+            "filename" => "Pageone",
+            "title" => "Pageone",
+            "url" => "Pageone"
         ];
         $this->assertEquals($fileMeta, $validData);
     }
@@ -168,25 +170,27 @@ class ConvertTest extends TestCase
 
     /**
      * @expectedException Exception
-     */ 
+     */
     public function test_exception_thrown_when_loading_invalid_xml_file()
     {
+        $this->expectException(\Exception::class);
         $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/invalid.xml']);
-        $this->convert->loadData( $this->convert->loadFile());
+        $this->convert->loadData($this->convert->loadFile());
     }
 
-     /**
+    /**
      * @expectedException Exception
-     */ 
+     */
     public function test_exception_thrown_when_loading_data_from_none_existant_file()
-   {
+    {
+        $this->expectException(\Exception::class);
         $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/nonexistentfile.xml']);
         $this->convert->loadFile();
     }
 
     /**
      * @test
-     */ 
+     */
     public function test_file_exists()
     {
         $file = $this->file_system->url() . '/data/valid.xml';
@@ -196,10 +200,11 @@ class ConvertTest extends TestCase
 
     /**
      * @expectedException Exception
-     */ 
+     */
     public function test_exception_thrown_when_create_directory_fails()
     {
         // Missing newFolder slash, creates an error
+        $this->expectException(\Exception::class);
         $newFolder = $this->file_system->url() . 'nonexistentoutput';
         $this->convert->setOption('filename', ['filename' => $newFolder]);
         $this->convert->createDirectory($newFolder);
@@ -227,7 +232,7 @@ class ConvertTest extends TestCase
      * @test
      */
     public function help_is_loadable()
-    {   
+    {
         $this->expectOutputRegex('/.*MIT License.*/');
         $this->convert->help();
     }
@@ -235,11 +240,12 @@ class ConvertTest extends TestCase
     private function helper_loadXMLData()
     {
         $this->convert->setOption('filename', ['filename' => $this->file_system->url() . '/data/valid.xml']);
-        $this->convert->loadData( $this->convert->loadFile());
+        $this->convert->loadData($this->convert->loadFile());
         return $this->convert->getOption('dataToConvert');
     }
 
-    private function loadData() {
+    private function loadData()
+    {
         return <<<XMLFILE
 <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.10/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mediawiki.org/xml/export-0.10/ http://www.mediawiki.org/xml/export-0.10.xsd" version="0.10" xml:lang="en">
   <siteinfo>
@@ -333,6 +339,5 @@ name: name2 are you here now?
   </page>
 </mediawiki>
 XMLFILE;
-
     }
 }
