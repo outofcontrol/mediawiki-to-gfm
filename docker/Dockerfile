@@ -82,7 +82,7 @@ RUN set -eux ; \
     rm -f /tmp/installer.php ; \
     find /tmp -type d -exec chmod -v 1777 {} +
 
-RUN apk add --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing/ pandoc
+RUN apk add --repository=https://dl-cdn.alpinelinux.org/alpine/edge/testing/ pandoc
 
 
 RUN git clone https://github.com/outofcontrol/mediawiki-to-gfm.git ; \
