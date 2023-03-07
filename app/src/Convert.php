@@ -343,7 +343,7 @@ class Convert
      */
     public function loadData($xmlData)
     {
-        if (($xml = new \SimpleXMLElement($xmlData)) === false) {
+        if (($xml = new \SimpleXMLElement($xmlData,  LIBXML_PARSEHUGE)) === false) {
             throw new \Exception('Invalid XML File.');
         }
         $this->dataToConvert = $xml->xpath('page');
