@@ -48,6 +48,20 @@ Run the script on your exported MediaWiki XML file:
                  (Default: false)
     --help     : This help message (almost)
 
+## Run with docker
+
+Create a new directory and put `filename.xml` into the new directory:
+```bash
+mkdir my_wiki
+mv filename.xml my_wiki/
+cd my_wiki
+```
+Now you can convert `filename.xml` using docker.
+Note: do **not** use the output parameter. The output will always be written into the subdirectory `output` of the current path. (hence the creation of a new directory). This is necessary, because the docker container does not have access to your filesystem except for the current directory (because of the `-v $PWD:/app` parameter for docker)
+```bash
+docker run -v $PWD:/app mediawiki-to-gfm --filename=filename.xml
+```
+
 ## Export Mediawiki Files to XML 
 
 In order to convert from MediaWiki format to GFM and use in GitLab (or GitHub), you will first need to export all the pages you wish to convert from Mediawiki into an XML file. Here are a few simple steps to help
