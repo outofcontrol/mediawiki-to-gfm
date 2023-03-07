@@ -12,7 +12,7 @@ jobs:
       - uses: php-actions/composer@v6
 
       - name: PHPUnit Tests
-        uses: php-actions/phpunit@v3
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.1'
           bootstrap: vendor/autoload.php
