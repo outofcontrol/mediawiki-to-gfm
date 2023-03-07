@@ -10,7 +10,7 @@ Major differences include the addition of PHPUnit tests, code is broken into cla
 
 ## Requirements
 
-* PHP: Tested in PHP 7.0, 7.1 and 7.2
+* PHP: Tested in PHP 7.0, 7.1, 7.2 and 8.0
 * Pandoc: Installation instructions are here https://pandoc.org/installing.html
     - Tested on version 2.0.1.1 and 2.0.2 
 * MediaWiki: https://www.mediawiki.org/wiki/MediaWiki
