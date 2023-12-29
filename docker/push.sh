@@ -1,5 +1,5 @@
 #!/bin/bash
-DOCKER_USERNAME=outofcontrol
+DOCKER_USERNAME=oooc
 docker tag mediawiki-to-gfm $DOCKER_USERNAME/mediawiki-to-gfm
 docker push $DOCKER_USERNAME/mediawiki-to-gfm
 echo "now create a version tag and push that one:"
