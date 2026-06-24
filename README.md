@@ -5,17 +5,15 @@ SPDX-License-Identifier: CC-BY-4.0
 
 # Mediawiki to GitHub Flavoured Markdown
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)]
-(https://opensource.org/licenses/MIT)[![CI]
-(https://github.com/outofcontrol/mediawiki-to-gfm/actions/workflows/ci.yml/badge.svg)](https://github.com/outofcontrol/mediawiki-to-gfm/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)[![CI](https://github.com/outofcontrol/mediawiki-to-gfm/actions/workflows/ci.yml/badge.svg)](https://github.com/outofcontrol/mediawiki-to-gfm/actions/workflows/ci.yml)
 
-Mediawiki to GFM is a script to convert a set of [Mediawiki]
-(https://www.mediawiki.org) pages to [GitHub Flavoured Markdown]
-(https://github.github.com/gfm/) (GFM). This script was written from a
+Mediawiki to GFM is a script to convert a set of 
+[Mediawiki](https://www.mediawiki.org) pages to 
+[GitHub Flavoured Markdown](https://github.github.com/gfm/) (GFM). 
+This script was written from a
 necessity to convert a MediaWiki installation to a GitLab wiki. This code is
-based on [MediaWiki to Markdown]
-(https://github.com/philipashlock/mediawiki-to-markdown) by [Philip Ashlock]
-(https://github.com/philipashlock/). Philip graciously gave us permission to
+based on [MediaWiki to Markdown](https://github.com/philipashlock/mediawiki-to-markdown) by 
+[Philip Ashlock](https://github.com/philipashlock/). Philip graciously gave us permission to
 post our version as a new project.
 
 Major differences include the addition of PHPUnit tests, code is broken into
@@ -38,8 +36,9 @@ added.
 
 ## Installation
 
-    git clone https://github.com/outofcontrol/mediawiki-to-gfm.git cd
-    mediawiki-to-gfm composer update --no-dev
+    git clone https://github.com/outofcontrol/mediawiki-to-gfm.git 
+    cd mediawiki-to-gfm
+    composer update --no-dev
     
 ## Run
 
@@ -74,14 +73,21 @@ Run the script on your exported MediaWiki XML file:
 
 ## Run with docker
 
-Create a new directory and put `filename.xml` into the new directory: ```bash
-mkdir my_wiki mv filename.xml my_wiki/ cd my_wiki ``` Now you can convert
-`filename.xml` using docker. Note: do **not** use the output parameter. The
-output will always be written into the subdirectory `output` of the current
-path. (hence the creation of a new directory). This is necessary, because the
-docker container does not have access to your filesystem except for the current
-directory (because of the `-v $PWD:/app` parameter for docker) ```bash docker
-run -v $PWD:/app oooc/mediawiki-to-gfm --filename=filename.xml ```
+Create a new directory and put `filename.xml` into the new directory: 
+
+```bash
+mkdir my_wiki
+mv filename.xml my_wiki/
+cd my_wiki
+```
+
+Now you can convert `filename.xml` using docker. 
+
+Note: do **not** use the output parameter. The output will always be written into the subdirectory `output` of the current path. (hence the creation of a new directory). This is necessary, because the docker container does not have access to your filesystem except for the current directory (because of the `-v $PWD:/app` parameter for docker) 
+
+```bash
+docker run -v $PWD:/app ghcr.io/outofcontrol/mediawiki-to-gfm:latest --filename=filename.xml
+```
 
 ## Build your own docker image
 
@@ -93,19 +99,34 @@ handle this for you.
 ### Local build (for testing)
 
 Builds an image for your machine architecture and loads it into your local
-Docker daemon as `mediawiki-to-gfm`: ```bash
-./docker/build.sh ``` Then run it exactly as shown in the "Run with docker"
-  section above.
+Docker daemon as `mediawiki-to-gfm`: 
+
+```bash
+./docker/build.sh
+```
+
+Then run it exactly as shown in the "Run with docker" section above.
 
 ### Multi-architecture build and publish
 
 `release.sh` builds for both `linux/amd64` and `linux/arm64` and pushes the
 result to a registry in a single step (a multi-architecture image cannot be
 loaded into the local daemon, only pushed). It requires Docker Buildx and a
-logged-in registry session: ```bash docker login
-./docker/release.sh ``` This pushes `oooc/mediawiki-to-gfm:latest` and `:1.0.1`.
-  Override the defaults with environment variables: ```bash VERSION=1.1.0
-  DOCKER_USERNAME=yourname ./docker/release.sh ```
+logged-in registry session: 
+
+```bash
+docker login
+./docker/release.sh
+```
+
+This pushes `oooc/mediawiki-to-gfm:latest` and `:1.0.1`.
+
+Override the defaults with environment variables:
+```bash
+VERSION=1.1.0
+DOCKER_USERNAME=yourname
+./docker/release.sh
+```
 
 ## Export Mediawiki Files to XML
 
@@ -114,14 +135,16 @@ you will first need to export all the pages you wish to convert from Mediawiki
 into an XML file. Here are a few simple steps to help you accomplish this
 quickly:
 
-1. MediaWiki -> Special Pages -> 'All Pages' 1. With help from the filter tool
-at the top of 'All Pages', copy the page names to convert into a text file
-(one file name per line). 1. MediaWiki -> Special Pages -> 'Export' 1. Paste
-the list of pages into the Export field. 1. Check: 'Include only the current
-revision, not the full history'  Note: This convert script will only do latest
-version, not revisions. 1. Uncheck: Include Templates 1. Check: Save as file 1.
-Click on the 'Export' button. 1. An XML file will be saved locally. 1. Use this
-convert.php script to convert the XML file a set of GFM formatted pages. 
+1. MediaWiki -> Special Pages -> 'All Pages'
+2. With help from the filter tool at the top of 'All Pages', copy the page names to convert into a text file (one file name per line).
+3. MediaWiki -> Special Pages -> 'Export'
+4. Paste the list of pages into the Export field.
+5. Check: 'Include only the current revision, not the full history'  Note: This convert script will only do latest version, not revisions.
+6. Uncheck: Include Templates
+7. Check: Save as file
+8. Click on the 'Export' button.
+9. An XML file will be saved locally.
+10. Use this convert.php script to convert the XML file a set of GFM formatted pages. 
 
 In theory you can convert to any of these formats… (not tested):
 https://pandoc.org/MANUAL.html#description
@@ -135,8 +158,10 @@ without the --no-dev parameter:
 ## Thank you
 
 [@SomethingGeneric](https://github.com/SomethingGeneric/): Fix path for Docker
+
 [@mloskot](https://github.com/mloskot/): Verify that this script does run in
 PHP 7.2 ([#1](https://github.com/outofcontrol/mediawiki-to-gfm/issues/1))
+
 [@timwsuqld](https://github.com/timwsuqld/): First contribution!
 
 ## Disclaimer
