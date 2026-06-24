@@ -86,7 +86,7 @@ Now you can convert `filename.xml` using docker.
 Note: do **not** use the output parameter. The output will always be written into the subdirectory `output` of the current path. (hence the creation of a new directory). This is necessary, because the docker container does not have access to your filesystem except for the current directory (because of the `-v $PWD:/app` parameter for docker) 
 
 ```bash
-docker run -v $PWD:/app oooc/mediawiki-to-gfm --filename=filename.xml
+docker run -v $PWD:/app ghcr.io/outofcontrol/mediawiki-to-gfm:latest --filename=filename.xml
 ```
 
 ## Build your own docker image
